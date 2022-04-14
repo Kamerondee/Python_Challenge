@@ -16,7 +16,7 @@ print(len(df))
 print(df["Profit/Losses"].sum())
 
 # Set counter to 0
-difference= [0]
+difference = [0]
 
 # Start for loop
 for x in range(1, len(df)):
@@ -30,6 +30,12 @@ print(df.head())
 great_inc = (df["differences"].max())
 great_dec = (df["differences"].min())
 
+difference.sort()
+print(difference)
+
+greatmonth = df.loc[df["differences"] == great_inc]["Date"].to_list()[0]
+greatdec = df.loc[df["differences"] == great_dec]["Date"].to_list()[0]
+print(greatdec)
 
 
 print("------------------")
@@ -37,6 +43,6 @@ print("Financial Analysis")
 print("------------------")
 print("Total Months", (len(df)))
 print("Total", ((df["Profit/Losses"].sum())))
-print("Average Change", (df["differences"][1:].mean()))
-print("Greatest Increase in Profits: $", [great_inc])
-print("Greatest Decrease in Profits: $", (great_dec))
+print("Average Change $" , (df["differences"][1:].mean()))
+print("Greatest Increase in Profits: $", (greatmonth), (great_inc))
+print("Greatest Decrease in Profits: $", (greatdec), ((great_dec)))

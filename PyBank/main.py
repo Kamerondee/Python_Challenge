@@ -1,5 +1,6 @@
 # Import pandas as pd
 from operator import index
+from tkinter import N
 import pandas as pd
 import numpy as np
 
@@ -25,24 +26,30 @@ for x in range(1, len(df)):
 df["differences"]=difference
 
 print(df["differences"][1:].mean())
-print(df.head())
 
+# Get the greatest increase/greatest decrease
 great_inc = (df["differences"].max())
 great_dec = (df["differences"].min())
 
-difference.sort()
-print(difference)
-
+# Calculate the greatest month/decrease month
 greatmonth = df.loc[df["differences"] == great_inc]["Date"].to_list()[0]
 greatdec = df.loc[df["differences"] == great_dec]["Date"].to_list()[0]
-print(greatdec)
 
 
-print("------------------")
 print("Financial Analysis")
 print("------------------")
 print("Total Months", (len(df)))
-print("Total", ((df["Profit/Losses"].sum())))
+print("Total $", ((df["Profit/Losses"].sum())))
 print("Average Change $" , (df["differences"][1:].mean()))
 print("Greatest Increase in Profits: $", (greatmonth), (great_inc))
 print("Greatest Decrease in Profits: $", (greatdec), ((great_dec)))
+
+file = open('pybank.txt','a')
+file.write('\nFinancial Analysis')
+file.write('\n-------------------')
+file.write("\nTotal Months", (len(df)))
+file.write("\nTotal", ((df["Profit/Losses"].sum())))
+file.write("\nAverage Change $" , (df["differences"][1:].mean()))
+file.write("\nGreatest Increase in Profits: $", (greatmonth), (great_inc))
+file.write("\nGreatest Decrease in Profits: $", (greatdec), ((great_dec)))
+file.close()
